@@ -3,7 +3,7 @@ import { addToCart } from './cart/setupCart.js';
 const display = (products, element) => {
     // display products
     element.innerHTML = products.map((product) => {
-        const {id,name,image,price} = product;
+        const {id, name ,image, price} = product;
         return `<article class="product">
         <div class="product-container">
             <img src="${image}" alt="${name}" class="product-img img" />
@@ -19,7 +19,7 @@ const display = (products, element) => {
         </div>
         <footer>
             <p class="${name}">name</p>
-            <h3 class="product-price">$9.99</h3>
+            <h3 class="product-price">${formatPrice(price)}</h3>
         </footer>
         </article>`
     })
