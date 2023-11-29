@@ -23,7 +23,6 @@ const getStorageItem = (item) => {
     storageItem = JSON.parse(localStorage.getItem(item));
   }
   else {
-
     storageItem = [];
   }
   return storageItem;
