@@ -74,7 +74,19 @@ function increaseAmount(id) {
       cartItem = {...cartItem, amount: newAmount};
     }
     return cartItem;
-  })
+  });
+  return newAmount;
+}
+
+function decreaseAmount(id) {
+  let newAmount;
+  cart = cart.map((cartItem)=>{
+    if(cartItem.id === id){
+      newAmount = cartItem.amount - 1;
+      cartItem = {...cartItem, amount: newAmount};
+    }
+    return cartItem;
+  });
   return newAmount;
 }
 
@@ -87,14 +99,29 @@ function setupCartFunctionality(){
     //remove
     if (element.classList.contains('cart-item-remove-btn')) {
       removeItem(id);
-      parent.parentElement.remove();
+      //parent.parentElement.remove();
+      element.parentElement.parentElement.remove();
     }
     // increase
+    if (parent.classList.contains('cart-item-increase-btn')) {
+      const newAmount = increaseAmount(parentID);
+      parent.nextElementSibling.textContent = newAmount;
+      console.log(newAmount);
+    }
     // decrease
+    if (parent.classList.contains('cart-item-decrease-btn')) {
+      const newAmount = decreaseAmount(parentID);
+      if (newAmount === 0) {
+        removeItem(parentID);
+        parent.parentElement.parentElement.remove();
+      } else {
+        parent.previousElementSibling.textContent = newAmount;
+      }
+    }
     displayCartItemCount();
     displayCartTotal();
-    setStorageItem('cart',cart);
-  })
+    setStorageItem('cart', cart);
+  });
 }
 
 const init = () => {
